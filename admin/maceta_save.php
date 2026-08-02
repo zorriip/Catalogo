@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/auth.php';
@@ -27,15 +28,15 @@ $data = [
     'estado' => ($_POST['estado'] ?? 'disponible') === 'vendida' ? 'vendida' : 'disponible'
 ];
 
-if ($data['codigo']==='' || $data['nombre']==='') {
+if ($data['codigo'] === '' || $data['nombre'] === '') {
     die('Debe indicar código y nombre.');
 }
 
 try {
     $pdo->beginTransaction();
 
-    if ($id>0) {
-        $sql="UPDATE macetas SET
+    if ($id > 0) {
+        $sql = "UPDATE macetas SET
             codigo=:codigo,
             nombre=:nombre,
             descripcion=:descripcion,
@@ -51,25 +52,25 @@ try {
             capacidad=:capacidad,
             estado=:estado
             WHERE id=:id";
-        $st=$pdo->prepare($sql);
-        $data['id']=$id;
+        $st = $pdo->prepare($sql);
+        $data['id'] = $id;
         $st->execute($data);
     } else {
-        $sql="INSERT INTO macetas
+        $sql = "INSERT INTO macetas
         (codigo,nombre,descripcion,descripcion_en,forma,largo,ancho,alto,material,esmalte,precio,peso,capacidad,estado)
         VALUES
         (:codigo,:nombre,:descripcion,:descripcion_en,:forma,:largo,:ancho,:alto,:material,:esmalte,:precio,:peso,:capacidad,:estado)";
-        $st=$pdo->prepare($sql);
+        $st = $pdo->prepare($sql);
         $st->execute($data);
-        $id=(int)$pdo->lastInsertId();
+        $id = (int)$pdo->lastInsertId();
     }
 
     $pdo->commit();
 
-    header("Location: maceta_form.php?id=".$id."&ok=1");
+     header("Location: maceta_form.php?id=".$id."&ok=1");
     exit;
-
-} catch(Throwable $e){
-    if($pdo->inTransaction()) $pdo->rollBack();
-    die("Error al guardar: ".$e->getMessage());
+    
+} catch (Throwable $e) {
+    if ($pdo->inTransaction()) $pdo->rollBack();
+    die("Error al guardar: " . $e->getMessage());
 }

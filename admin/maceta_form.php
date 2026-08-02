@@ -1,19 +1,15 @@
 <?php
 require 'auth.php';
 
-require_once '../config.php';
-
-if (empty($_SESSION['admin'])) {
-  header('Location: ../index.php');
-  exit;
-}
-
+require_once __DIR__ . '/../includes/catalogos.php';
 
 $id = $_GET['id'] ?? null;
+
 $maceta = [
   'codigo' => '',
   'nombre' => '',
   'descripcion' => '',
+  'descripcion_en' => '',
   'forma' => '',
   'largo' => '',
   'ancho' => '',
@@ -24,7 +20,6 @@ $maceta = [
   'estado' => 'disponible',
   'peso' => '',
   'capacidad' => ''
-  
 ];
 
 if ($id) {
@@ -98,15 +93,15 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   <label>Nombre</label><br>
   <input name="nombre" value="<?= htmlspecialchars($maceta['nombre']) ?>" required><br><br>
 
-  
-<label>Descripción:</label><br>
-<textarea name="descripcion" rows="4">
+
+  <label>Descripción:</label><br>
+  <textarea name="descripcion" rows="4">
 <?= htmlspecialchars($maceta['descripcion'] ?? '') ?>
 </textarea>
 
 
-<label><?= t('descripcion_en') ?>:</label>
-<textarea name="descripcion_en" rows="4" placeholder="Description in English">
+  <label><?= t('descripcion_en') ?>:</label>
+  <textarea name="descripcion_en" rows="4" placeholder="Description in English">
 <?= htmlspecialchars($maceta['descripcion_en'] ?? '') ?>
 </textarea><br>
 
@@ -115,15 +110,20 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   <label>Forma</label><br>
   <select name="forma">
-    <option value="">--</option>
-    <option value="oval" <?= $maceta['forma']=='oval'?'selected':'' ?>>Oval</option>
-    <option value="rectangular" <?= $maceta['forma']=='rectangular'?'selected':'' ?>>Rectangular</option>
-    <option value="redonda" <?= $maceta['forma']=='redonda'?'selected':'' ?>>Redonda</option>
-    <option value="cuadrada" <?= $maceta['forma']=='cuadrada'?'selected':'' ?>>Cuadrada</option>
-    <option value="flor" <?= $maceta['forma']=='flor'?'selected':'' ?>>Flor</option>
-    <option value="kurama" <?= $maceta['forma']=='kurama'?'selected':'' ?>>Kurama</option>
-    <option value="cascada" <?= $maceta['forma']=='cascada'?'selected':'' ?>>Cascada</option>
-    <option value="kusamono" <?= $maceta['forma']=='kusamono'?'selected':'' ?>>Kusamon</option>
+    <option value=""><?= t('seleccionar') ?></option>
+
+    <?php foreach (catalogoFormas() as $forma): ?>
+
+      <option
+        value="<?= $forma ?>"
+        <?= $maceta['forma'] === $forma ? 'selected' : '' ?>>
+
+        <?= t_value('forma', $forma) ?>
+
+      </option>
+
+    <?php endforeach; ?>
+
   </select><br><br>
 
   <label>Medidas (cm)</label><br>
@@ -132,70 +132,66 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   Alto <input name="alto" size="4" value="<?= $maceta['alto'] ?>"><br><br>
 
   <label>Peso (kg)</label><br>
-<input type="number" name="peso"
-       step="0.001"
-       value="<?= $maceta['peso'] ?? '' ?>"><br><br>
+  <input type="number" name="peso"
+    step="0.001"
+    value="<?= $maceta['peso'] ?? '' ?>"><br><br>
 
-<label>Capacidad (litros)</label><br>
-<input type="number" name="capacidad"
-       step="0.001"
-       value="<?= $maceta['capacidad'] ?? '' ?>"><br><br>
+  <label>Capacidad (litros)</label><br>
+  <input type="number" name="capacidad"
+    step="0.001"
+    value="<?= $maceta['capacidad'] ?? '' ?>"><br><br>
 
 
-<label>Material</label><br>
-<select name="material" required>
-  <?php
-  $materiales = ['gres','terracota','ceramica','raku','barro','plastico'];
-  foreach ($materiales as $mat):
-  ?>
-    <option value="<?= $mat ?>"
-      <?= ($maceta['material'] ?? '') === $mat ? 'selected' : '' ?>>
-      <?= $mat ?>
-    </option>
-  <?php endforeach; ?>
+  <label>Material</label><br>
+  <select name="material">
+
+<?php foreach (catalogoMateriales() as $material): ?>
+
+<option
+    value="<?= $material ?>"
+    <?= $maceta['material']===$material ? 'selected' : '' ?>>
+
+    <?= t_value('material',$material) ?>
+
+</option>
+
+<?php endforeach; ?>
+
 </select><br><br>
 
 
-<label><?= t('esmalte') ?>:</label>
-<select name="esmalte">
+  <label><?= t('esmalte') ?>:</label>
+  <select name="esmalte">
 
-  <option value=""><?= t('seleccionar') ?></option>
+<option value=""><?= t('seleccionar') ?></option>
 
-  <option value="brillante" <?= ($maceta['esmalte'] ?? '') === 'brillante' ? 'selected' : '' ?>>
-    <?= t('esmalte_brillante') ?>
-  </option>
+<?php foreach (catalogoEsmaltes() as $esmalte): ?>
 
-  <option value="satinado" <?= ($maceta['esmalte'] ?? '') === 'satinado' ? 'selected' : '' ?>>
-    <?= t('esmalte_satinado') ?>
-  </option>
+<option
+    value="<?= $esmalte ?>"
+    <?= $maceta['esmalte']===$esmalte ? 'selected' : '' ?>>
 
-  <option value="mate" <?= ($maceta['esmalte'] ?? '') === 'mate' ? 'selected' : '' ?>>
-    <?= t('esmalte_mate') ?>
-  </option>
+    <?= t_value('esmalte',$esmalte) ?>
 
-  <option value="sin_esmalte" <?= ($maceta['esmalte'] ?? '') === 'sin_esmalte' ? 'selected' : '' ?>>
-    <?= t('esmalte_sin') ?>
-  </option>
+</option>
 
-  <option value="mixto" <?= ($maceta['esmalte'] ?? '') === 'mixto' ? 'selected' : '' ?>>
-    <?= t('esmalte_mixto') ?>
-  </option>
+<?php endforeach; ?>
 
 </select>
 
- 
 
-<label>Precio</label>
-<input type="number"
-       name="precio"
-       step="0.01"
-       value="<?= $maceta['precio'] ?? '' ?>"><br><br>
+
+  <label>Precio</label>
+  <input type="number"
+    name="precio"
+    step="0.01"
+    value="<?= $maceta['precio'] ?? '' ?>"><br><br>
 
 
   <label>Estado</label><br>
   <select name="estado">
-    <option value="disponible" <?= $maceta['estado']=='disponible'?'selected':'' ?>>Disponible</option>
-    <option value="vendida" <?= $maceta['estado']=='vendida'?'selected':'' ?>>Vendida</option>
+    <option value="disponible" <?= $maceta['estado'] == 'disponible' ? 'selected' : '' ?>>Disponible</option>
+    <option value="vendida" <?= $maceta['estado'] == 'vendida' ? 'selected' : '' ?>>Vendida</option>
   </select><br><br>
 
   <button>Guardar</button>

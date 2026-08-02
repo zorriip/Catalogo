@@ -1,19 +1,61 @@
 <?php
-require 'auth.php';
-require '../config.php';
 
+require 'auth.php';
 
 $id = $_GET['id'] ?? null;
-$v = $_GET['v'] ?? null;
 
-
-if ($id === null || $v === null) {
-header('Location: dashboard.php'); exit;
+if (!$id) {
+    header('Location: dashboard.php');
+    exit;
 }
 
 
-$stmt = $pdo->prepare("UPDATE macetas SET vendida = ? WHERE id = ?");
-$stmt->execute([(int)$v, $id]);
+/*
+|--------------------------------------------------------------------------
+| Obtener estado actual
+|--------------------------------------------------------------------------
+*/
 
+$stmt = $pdo->prepare("
+    SELECT estado
+    FROM macetas
+    WHERE id = ?
+");
 
-header('Location: dashboard.php');
+$stmt->execute([$id]);
+
+$estado = $stmt->fetchColumn();
+
+if ($estado === false) {
+    header('Location: dashboard.php');
+    exit;
+}
+
+$nuevoEstado =
+    ($estado === 'vendida')
+    ? 'disponible'
+    : 'vendida';
+
+/*
+|--------------------------------------------------------------------------
+| Actualizar
+|--------------------------------------------------------------------------
+*/
+
+$stmt = $pdo->prepare("
+    UPDATE macetas
+    SET estado = ?
+    WHERE id = ?
+");
+
+$stmt->execute([
+    $nuevoEstado,
+    $id
+]);
+
+// Conservar búsqueda, página y demás parámetros
+$query = $_GET;
+unset($query['id']);
+
+header('Location: dashboard.php?' . http_build_query($query));
+exit;
