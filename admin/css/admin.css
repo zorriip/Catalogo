@@ -362,7 +362,6 @@ textarea{
     flex-direction:column;
 }
 
-
 .field label{
 
     font-weight:600;
@@ -372,7 +371,6 @@ textarea{
     color:#374151;
 
 }
-
 
 .field input,
 .field select,
@@ -388,14 +386,13 @@ textarea{
 
     border-radius:8px;
 
-    font-size:15px;
+    font-size:.95rem;
 
     box-sizing:border-box;
 
     transition:.20s;
 
 }
-.field input:focus,
 .field select:focus,
 textarea:focus{
     border-color:#3b82f6;
