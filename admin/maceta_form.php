@@ -1,4 +1,6 @@
 <?php
+//V3001A
+
 require 'auth.php';
 
 require_once __DIR__ . '/../includes/catalogos.php';
@@ -83,117 +85,363 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   exit;
 }
 ?>
+<?php require_once __DIR__ . '/includes/admin_header.php'; ?>
 
-<h1><?= $id ? 'Editar maceta' : 'Nueva maceta' ?></h1>
+<div class="page-header">
 
-<form method="post">
-  <label>Código</label><br>
-  <input name="codigo" value="<?= htmlspecialchars($maceta['codigo']) ?>" required><br><br>
+    <div>
 
-  <label>Nombre</label><br>
-  <input name="nombre" value="<?= htmlspecialchars($maceta['nombre']) ?>" required><br><br>
+        <h1>
+            <?= $id ? 'Editar maceta' : 'Nueva maceta' ?>
+        </h1>
 
+        <p class="page-subtitle">
 
-  <label>Descripción:</label><br>
-  <textarea name="descripcion" rows="4">
-<?= htmlspecialchars($maceta['descripcion'] ?? '') ?>
-</textarea>
+            <?= $id
+                ? 'Modificar la información de la maceta'
+                : 'Ingresar una nueva maceta al catálogo'; ?>
 
+        </p>
 
-  <label><?= t('descripcion_en') ?>:</label>
-  <textarea name="descripcion_en" rows="4" placeholder="Description in English">
-<?= htmlspecialchars($maceta['descripcion_en'] ?? '') ?>
-</textarea><br>
+    </div>
 
-
+</div>
 
 
-  <label>Forma</label><br>
-  <select name="forma">
-    <option value=""><?= t('seleccionar') ?></option>
+<form method="post" class="admin-form">
 
-    <?php foreach (catalogoFormas() as $forma): ?>
+<!-- ==========================================================
+     TARJETA 1
+     DATOS GENERALES
+=========================================================== -->
 
-      <option
-        value="<?= $forma ?>"
-        <?= $maceta['forma'] === $forma ? 'selected' : '' ?>>
+<div class="card">
 
-        <?= t_value('forma', $forma) ?>
+    <h2>Datos generales</h2>
 
-      </option>
+    <div class="datos-grid">
 
-    <?php endforeach; ?>
+        <!-- ================= Código ================= -->
 
-  </select><br><br>
+        <div class="field span-3">
 
-  <label>Medidas (cm)</label><br>
-  Largo <input name="largo" size="4" value="<?= $maceta['largo'] ?>">
-  Ancho <input name="ancho" size="4" value="<?= $maceta['ancho'] ?>">
-  Alto <input name="alto" size="4" value="<?= $maceta['alto'] ?>"><br><br>
+            <label>Código</label>
 
-  <label>Peso (kg)</label><br>
-  <input type="number" name="peso"
-    step="0.001"
-    value="<?= $maceta['peso'] ?? '' ?>"><br><br>
+            <input
+                type="text"
+                name="codigo"
+                value="<?= htmlspecialchars($maceta['codigo']) ?>"
+                required>
 
-  <label>Capacidad (litros)</label><br>
-  <input type="number" name="capacidad"
-    step="0.001"
-    value="<?= $maceta['capacidad'] ?? '' ?>"><br><br>
+        </div>
 
 
-  <label>Material</label><br>
-  <select name="material">
+        <!-- ================= Nombre ================= -->
 
-<?php foreach (catalogoMateriales() as $material): ?>
+        <div class="field span-9">
 
-<option
-    value="<?= $material ?>"
-    <?= $maceta['material']===$material ? 'selected' : '' ?>>
+            <label>Nombre</label>
 
-    <?= t_value('material',$material) ?>
+            <input
+                type="text"
+                name="nombre"
+                value="<?= htmlspecialchars($maceta['nombre']) ?>"
+                required>
 
-</option>
-
-<?php endforeach; ?>
-
-</select><br><br>
+        </div>
 
 
-  <label><?= t('esmalte') ?>:</label>
-  <select name="esmalte">
+        <!-- ================= Forma ================= -->
 
-<option value=""><?= t('seleccionar') ?></option>
+        <div class="field span-4">
 
-<?php foreach (catalogoEsmaltes() as $esmalte): ?>
+            <label>Forma</label>
 
-<option
-    value="<?= $esmalte ?>"
-    <?= $maceta['esmalte']===$esmalte ? 'selected' : '' ?>>
+            <select name="forma">
 
-    <?= t_value('esmalte',$esmalte) ?>
+                <option value="">
+                    <?= t('seleccionar') ?>
+                </option>
 
-</option>
+                <?php foreach (catalogoFormas() as $forma): ?>
 
-<?php endforeach; ?>
+                    <option
+                        value="<?= $forma ?>"
+                        <?= ($maceta['forma'] ?? '')==$forma ? 'selected':'' ?>>
 
-</select>
+                        <?= t_value('forma',$forma) ?>
+
+                    </option>
+
+                <?php endforeach; ?>
+
+            </select>
+
+        </div>
 
 
+        <!-- ================= Material ================= -->
 
-  <label>Precio</label>
-  <input type="number"
-    name="precio"
-    step="0.01"
-    value="<?= $maceta['precio'] ?? '' ?>"><br><br>
+        <div class="field span-4">
+
+            <label>Material</label>
+
+            <select name="material">
+
+                <?php foreach (catalogoMateriales() as $material): ?>
+
+                    <option
+                        value="<?= $material ?>"
+                        <?= ($maceta['material'] ?? '')==$material ? 'selected':'' ?>>
+
+                        <?= t_value('material',$material) ?>
+
+                    </option>
+
+                <?php endforeach; ?>
+
+            </select>
+
+        </div>
 
 
-  <label>Estado</label><br>
-  <select name="estado">
-    <option value="disponible" <?= $maceta['estado'] == 'disponible' ? 'selected' : '' ?>>Disponible</option>
-    <option value="vendida" <?= $maceta['estado'] == 'vendida' ? 'selected' : '' ?>>Vendida</option>
-  </select><br><br>
+        <!-- ================= Esmalte ================= -->
 
-  <button>Guardar</button>
-  <a href="dashboard.php">Cancelar</a>
+        <div class="field span-4">
+
+            <label><?= t('esmalte') ?></label>
+
+            <select name="esmalte">
+
+                <option value="">
+                    <?= t('seleccionar') ?>
+                </option>
+
+                <?php foreach (catalogoEsmaltes() as $esmalte): ?>
+
+                    <option
+                        value="<?= $esmalte ?>"
+                        <?= ($maceta['esmalte'] ?? '')==$esmalte ? 'selected':'' ?>>
+
+                        <?= t_value('esmalte',$esmalte) ?>
+
+                    </option>
+
+                <?php endforeach; ?>
+
+            </select>
+
+        </div>
+
+
+        <!-- ================= Largo ================= -->
+
+        <div class="field span-2">
+
+            <label>Largo (cm)</label>
+
+            <input
+                type="number"
+                step="0.01"
+                name="largo"
+                value="<?= $maceta['largo'] ?>">
+
+        </div>
+
+
+        <!-- ================= Ancho ================= -->
+
+        <div class="field span-2">
+
+            <label>Ancho (cm)</label>
+
+            <input
+                type="number"
+                step="0.01"
+                name="ancho"
+                value="<?= $maceta['ancho'] ?>">
+
+        </div>
+
+
+        <!-- ================= Alto ================= -->
+
+        <div class="field span-2">
+
+            <label>Alto (cm)</label>
+
+            <input
+                type="number"
+                step="0.01"
+                name="alto"
+                value="<?= $maceta['alto'] ?>">
+
+        </div>
+
+
+        <!-- ================= Capacidad ================= -->
+
+        <div class="field span-3">
+
+            <label>Capacidad (L)</label>
+
+            <input
+                type="number"
+                step="0.001"
+                name="capacidad"
+                value="<?= $maceta['capacidad'] ?>">
+
+        </div>
+
+
+        <!-- ================= Peso ================= -->
+
+        <div class="field span-3">
+
+            <label>Peso (kg)</label>
+
+            <input
+                type="number"
+                step="0.001"
+                name="peso"
+                value="<?= $maceta['peso'] ?>">
+
+        </div>
+
+
+        <!-- ================= Precio ================= -->
+
+        <div class="field span-8">
+
+            <label>Precio</label>
+
+            <input
+                type="number"
+                step="0.01"
+                name="precio"
+                value="<?= $maceta['precio'] ?>">
+
+        </div>
+
+
+        <!-- ================= Estado ================= -->
+
+        <div class="field span-4">
+
+            <label>Estado</label>
+
+            <select name="estado">
+
+                <option value="disponible"
+                    <?= $maceta['estado']=='disponible'?'selected':'' ?>>
+                    Disponible
+                </option>
+
+                <option value="vendida"
+                    <?= $maceta['estado']=='vendida'?'selected':'' ?>>
+                    Vendida
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ==========================================================
+     DESCRIPCIÓN EN ESPAÑOL
+=========================================================== -->
+
+<div class="card">
+
+    <h2>Descripción (Español)</h2>
+
+    <div class="field">
+
+        <textarea
+            name="descripcion"
+            rows="8"><?= htmlspecialchars($maceta['descripcion'] ?? '') ?></textarea>
+
+    </div>
+
+</div>
+<!-- ==========================================================
+     DESCRIPTION ENGLISH
+=========================================================== -->
+
+<div class="card">
+
+    <h2>Description (English)</h2>
+
+    <div class="field">
+
+        <textarea
+            name="descripcion_en"
+            rows="8"><?= htmlspecialchars($maceta['descripcion_en'] ?? '') ?></textarea>
+
+    </div>
+
+</div>
+
+<!-- ==========================================================
+     FOTOGRAFÍAS
+=========================================================== -->
+
+<div class="card">
+
+    <h2>Fotografías</h2>
+
+    <div class="photo-placeholder">
+
+        <svg width="48" height="48" viewBox="0 0 24 24"
+             fill="none" stroke="#888" stroke-width="1.5">
+
+            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+
+            <circle cx="8.5" cy="10" r="1.5"></circle>
+
+            <path d="M21 16l-5-5-4 4-2-2-4 3"></path>
+
+        </svg>
+
+        <h3>Gestión de fotografías</h3>
+
+        <p>
+
+            En la próxima versión aquí aparecerá la galería de la maceta,
+            la carga múltiple de fotografías, selección de portada y
+            eliminación de imágenes.
+
+        </p>
+
+    </div>
+
+</div>
+<div class="form-actions">
+
+    <a
+        href="dashboard.php"
+        class="btn btn-secondary">
+
+        Cancelar
+
+    </a>
+
+    <button
+        type="submit"
+        class="btn btn-primary">
+
+        Guardar Maceta
+
+    </button>
+
+</div>
+
 </form>
+
+<?php require_once __DIR__.'/includes/admin_footer.php'; ?>
+
+
+
+
