@@ -10,11 +10,12 @@
 /**
  * Escapar texto para HTML.
  */
-function e(?string $value): string
+
+/*function e(?string $value): string  Duplicada en/includes/functions.php
 {
     return htmlspecialchars($value ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
-
+*/
 /**
  * Devuelve la clase CSS y el texto del estado.
  */
