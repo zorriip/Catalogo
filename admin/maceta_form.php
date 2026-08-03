@@ -123,7 +123,7 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         <!-- ================= Código ================= -->
 
-        <div class="field span-3">
+        <div class="field span-1">
 
             <label>Código</label>
 
@@ -138,8 +138,7 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         <!-- ================= Nombre ================= -->
 
-        <div class="field span-9">
-
+       <div class="field span-11">
             <label>Nombre</label>
 
             <input
