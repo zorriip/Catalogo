@@ -5,6 +5,7 @@ require 'auth.php';
 
 require_once __DIR__ . '/../includes/catalogos.php';
 
+
 $id = $_GET['id'] ?? null;
 
 $maceta = [
@@ -29,6 +30,17 @@ if ($id) {
   $stmt->execute([$id]);
   $maceta = $stmt->fetch();
 }
+
+$stmt = $pdo->prepare("
+    SELECT *
+    FROM fotos
+    WHERE maceta_id = ?
+    ORDER BY es_portada DESC, id ASC
+");
+
+$stmt->execute([$id]);
+
+$fotos = $stmt->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -386,7 +398,7 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 <!-- ==========================================================
      FOTOGRAFÍAS
 =========================================================== -->
-
+<!--
 <div class="card">
 
     <h2>Fotografías</h2>
@@ -416,7 +428,9 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     </div>
 
-</div>
+</div>-->
+<?php include __DIR__ . '/includes/fotos_panel.php'; ?>
+
 <div class="form-actions">
 
     <a
