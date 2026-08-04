@@ -7,6 +7,7 @@ require_once __DIR__ . '/../includes/catalogos.php';
 require_once __DIR__ . '/includes/admin_functions.php';
 
 
+
 $id = $_GET['id'] ?? null;
 
 $maceta = [
