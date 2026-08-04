@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/includes/admin_functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: dashboard.php');
@@ -65,11 +66,20 @@ try {
         $id = (int)$pdo->lastInsertId();
     }
 
+    if (!empty($_FILES['fotos']['name'][0])) {
+
+        subirFotosMaceta(
+            $pdo,
+            $id,
+            $_FILES['fotos']
+        );
+    }
     $pdo->commit();
 
-     header("Location: maceta_form.php?id=".$id."&ok=1");
+
+
+    header("Location: maceta_form.php?id=" . $id . "&ok=1");
     exit;
-    
 } catch (Throwable $e) {
     if ($pdo->inTransaction()) $pdo->rollBack();
     die("Error al guardar: " . $e->getMessage());

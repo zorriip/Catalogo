@@ -833,3 +833,16 @@ input[type=number]{
 
 }
 
+.upload-form{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.upload-form label{
+
+    cursor:pointer;
+
+}

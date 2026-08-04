@@ -148,3 +148,95 @@ function iconDuplicate(): string
 </svg>
 SVG;
 }
+
+function subirFotosMaceta(PDO $pdo, int $macetaId, array $files): void
+{
+    if (
+        empty($files['name']) ||
+        empty($files['name'][0])
+    ) {
+        return;
+    }
+
+    // Obtener el código de la maceta
+    $stmt = $pdo->prepare("
+        SELECT codigo
+        FROM macetas
+        WHERE id = ?
+    ");
+
+    $stmt->execute([$macetaId]);
+
+    $codigo = $stmt->fetchColumn();
+
+    if (!$codigo) {
+        return;
+    }
+
+    // Crear carpeta si no existe
+    $dir = __DIR__ . "/../../uploads/$codigo";
+
+    if (!is_dir($dir)) {
+        mkdir($dir, 0777, true);
+    }
+
+    foreach ($files['tmp_name'] as $i => $tmp) {
+
+        if ($files['error'][$i] !== UPLOAD_ERR_OK) {
+            continue;
+        }
+
+        $ext = strtolower(
+            pathinfo(
+                $files['name'][$i],
+                PATHINFO_EXTENSION
+            )
+        );
+
+        $nombre = uniqid('foto_') . '.' . $ext;
+
+        $destino = $dir . '/' . $nombre;
+
+        if (!move_uploaded_file($tmp, $destino)) {
+            continue;
+        }
+
+        $stmt = $pdo->prepare("
+            INSERT INTO fotos
+            (maceta_id, archivo, es_portada)
+            VALUES (?, ?, 0)
+        ");
+
+        $stmt->execute([
+            $macetaId,
+            "uploads/$codigo/$nombre"
+        ]);
+    }
+
+    // Si no existe portada, asignar la primera
+    $stmt = $pdo->prepare("
+        SELECT COUNT(*)
+        FROM fotos
+        WHERE maceta_id = ?
+          AND es_portada = 1
+    ");
+
+    $stmt->execute([$macetaId]);
+
+    if (!$stmt->fetchColumn()) {
+
+        $stmt = $pdo->prepare("
+            UPDATE fotos
+            SET es_portada = 1
+            WHERE id = (
+                SELECT id
+                FROM fotos
+                WHERE maceta_id = ?
+                ORDER BY id
+                LIMIT 1
+            )
+        ");
+
+        $stmt->execute([$macetaId]);
+    }
+}

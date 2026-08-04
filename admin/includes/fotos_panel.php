@@ -15,25 +15,33 @@
 
     <h2>Fotografías</h2>
 
-    <div class="photo-toolbar">
+    
 
-        <button
-            type="button"
-            class="btn btn-primary"
-            disabled>
+        <div class="photo-toolbar">
 
-            + Agregar fotografías
+            <input
+                id="fotos"
+                type="file"
+                name="fotos[]"
+                multiple
+                accept="image/*">
 
-        </button>
+            <span>
+
+                Puede seleccionar una o varias fotografías.
+                Se cargarán al pulsar <strong>Guardar</strong>.
+
+            </span>
+
+        </div>
 
         <span>
 
-            La carga múltiple se habilitará en la siguiente etapa.
+            Puede seleccionar varias fotografías.
 
         </span>
 
-    </div>
-
+  
 
     <?php if (empty($fotos)): ?>
 
