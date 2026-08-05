@@ -69,22 +69,22 @@ $fotos = $stmt->fetchAll();
 
 </div>
 <form
-    action="maceta_save.php"
-    method="post"
-    enctype="multipart/form-data"
-    class="admin-form">
+  action="maceta_save.php"
+  method="post"
+  enctype="multipart/form-data"
+  class="admin-form">
 
-    <input
-        type="hidden"
-        name="id"
-        value="<?= (int)$id ?>">
+  <input
+    type="hidden"
+    name="id"
+    value="<?= (int)$id ?>">
 
   <!-- ==========================================================
      TARJETA 1
      DATOS GENERALES
 =========================================================== -->
 
-  <div class="card">
+  <div class="form-card">
 
     <h2>Datos generales</h2>
 
@@ -320,63 +320,44 @@ $fotos = $stmt->fetchAll();
   <!-- ==========================================================
      DESCRIPCIÓN EN ESPAÑOL
 =========================================================== -->
+  <div class="descripcion-grid">
+    <div class="form-card">
 
-  <div class="card">
+      <h2>Descripción (Español)</h2>
 
-    <h2>Descripción (Español)</h2>
+      <div class="field">
 
-    <div class="field">
+        <textarea
+          name="descripcion"
+          rows="8"><?= htmlspecialchars($maceta['descripcion'] ?? '') ?></textarea>
 
-      <textarea
-        name="descripcion"
-        rows="8"><?= htmlspecialchars($maceta['descripcion'] ?? '') ?></textarea>
+      </div>
 
     </div>
-
-  </div>
-  <!-- ==========================================================
+    <!-- ==========================================================
      DESCRIPTION ENGLISH
 =========================================================== -->
 
-  <div class="card">
+    <div class="form-card">
 
-    <h2>Description (English)</h2>
+      <h2>Description (English)</h2>
 
-    <div class="field">
+      <div class="field">
 
-      <textarea
-        name="descripcion_en"
-        rows="8"><?= htmlspecialchars($maceta['descripcion_en'] ?? '') ?></textarea>
+        <textarea
+          name="descripcion_en"
+          rows="8"><?= htmlspecialchars($maceta['descripcion_en'] ?? '') ?></textarea>
+
+      </div>
 
     </div>
-
   </div>
-
   <!-- ==========================================================
      FOTOGRAFÍAS
 =========================================================== -->
 
   <?php include __DIR__ . '/includes/fotos_panel.php'; ?>
 
-  <div class="form-actions">
-
-    <a
-      href="dashboard.php"
-      class="btn btn-secondary">
-
-      Cancelar
-
-    </a>
-
-    <button
-      type="submit"
-      class="btn btn-primary">
-
-      Guardar Maceta
-
-    </button>
-
-  </div>
 
 </form>
 

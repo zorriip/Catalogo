@@ -78,7 +78,7 @@ try {
 
 
 
-    header("Location: maceta_form.php?id=" . $id . "&ok=1");
+    header("Location: maceta_form.php?id=" . $id . "#panel-fotos");
     exit;
 } catch (Throwable $e) {
     if ($pdo->inTransaction()) $pdo->rollBack();

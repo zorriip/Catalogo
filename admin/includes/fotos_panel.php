@@ -11,37 +11,68 @@
 */
 ?>
 
-<div class="card">
+<div class="form-card" id="panel-fotos">
 
-    <h2>Fotografías</h2>
 
-    
+    <div class="card-header">
 
-        <div class="photo-toolbar">
+    <h2>
+        📷 Fotografías (<?= count($fotos) ?>)
+    </h2>
 
-            <input
-                id="fotos"
-                type="file"
-                name="fotos[]"
-                multiple
-                accept="image/*">
+    <div class="card-header-actions">
 
-            <span>
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="btnAgregarFotos">
 
-                Puede seleccionar una o varias fotografías.
-                Se cargarán al pulsar <strong>Guardar</strong>.
+            + Agregar fotografías
 
-            </span>
+        </button>
 
-        </div>
+        <a
+            href="dashboard.php"
+            class="btn btn-secondary">
+
+            Cancelar
+
+        </a>
+
+        <button
+            type="submit"
+            class="btn btn-primary">
+
+            Guardar
+
+        </button>
+
+    </div>
+
+</div>
+
+    <div class="photo-toolbar">
+
+        <input
+            type="file"
+            id="fotos-input"
+            name="fotos[]"
+            multiple
+            accept="image/*"
+            style="display:none;">
 
         <span>
 
-            Puede seleccionar varias fotografías.
+            Puede seleccionar una o varias fotografías.
+            Se cargarán al pulsar <strong>Guardar</strong>.
 
         </span>
 
-  
+    </div>
+
+
+
+
 
     <?php if (empty($fotos)): ?>
 
@@ -81,6 +112,9 @@
 
         <div class="photo-gallery">
 
+
+
+
             <?php foreach ($fotos as $foto): ?>
 
                 <div class="photo-card">
@@ -95,10 +129,37 @@
 
                     <div class="photo-actions">
 
-                        ...
+                        <?php if ((int)$foto['es_portada'] === 1): ?>
+
+                            <span class="btn btn-success btn-sm btn-disabled">
+
+                                ★ Portada
+
+                            </span>
+
+                        <?php else: ?>
+
+                            <a
+                                class="btn btn-light btn-sm"
+                                href="foto_portada.php?foto=<?= (int)$foto['id'] ?>&maceta=<?= (int)$id ?>">
+
+                                Hacer portada
+
+                            </a>
+
+                        <?php endif; ?>
+
+
+                        <a
+                            class="btn btn-danger btn-sm"
+                            href="foto_delete.php?foto=<?= (int)$foto['id'] ?>&maceta=<?= (int)$id ?>"
+                            onclick="return confirm('¿Está seguro de eliminar esta fotografía?');">
+
+                            🗑 Eliminar
+
+                        </a>
 
                     </div>
-
                 </div>
             <?php endforeach; ?>
 
@@ -107,3 +168,31 @@
     <?php endif; ?>
 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const boton = document.getElementById('btnAgregarFotos');
+        const selector = document.getElementById('fotos-input');
+
+        if (boton && selector) {
+
+            boton.addEventListener('click', function() {
+
+                selector.click();
+
+            });
+
+            selector.addEventListener('change', function() {
+
+                if (this.files.length > 0) {
+
+                    this.form.submit();
+
+                }
+
+            });
+
+        }
+
+    });
+</script>
