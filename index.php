@@ -2,23 +2,23 @@
 require_once 'config.php';
 require_once 'includes/functions.php';
 
-
 $condiciones = [];
 $params = [];
 
 if (!empty($_GET['forma'])) {
-  $condiciones[] = "forma = ?";
-  $params[] = $_GET['forma'];
+    $condiciones[] = "forma = ?";
+    $params[] = $_GET['forma'];
 }
 
 if (isset($_GET['estado']) && $_GET['estado'] !== '') {
-  $condiciones[] = "vendida = ?";
-  $params[] = (int) $_GET['estado'];
+    $condiciones[] = "vendida = ?";
+    $params[] = (int) $_GET['estado'];
 }
 
 $sql = "SELECT * FROM macetas";
+
 if ($condiciones) {
-  $sql .= " WHERE " . implode(' AND ', $condiciones);
+    $sql .= " WHERE " . implode(' AND ', $condiciones);
 }
 
 $stmt = $pdo->prepare($sql);
@@ -27,135 +27,199 @@ $macetas = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="<?= htmlspecialchars($_SESSION['lang'] ?? 'es') ?>">
 
 <head>
-  <meta charset="UTF-8">
-  <title><?= t('catalogo')?></title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= t('catalogo') ?></title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <?php include 'includes/header.php'; ?>
-  <main class="site-content catalogo">
 
-    <h1><?= t('catalogo_b') ?></h1>
+<?php include 'includes/header.php'; ?>
 
+<main class="site-content catalogo">
 
-    <form method="get" style="margin-bottom:20px">
+    <section class="catalogo-intro">
 
-      <label><?= t('forma') ?>:</label>
-      <select name="forma" onchange="this.form.submit()">
+        <div class="catalogo-heading-row">
 
-        <option value="">
-          <?= t('todas') ?>
-        </option>
-
-        <option value="rectangular" <?= ($_GET['forma'] ?? '') === 'rectangular' ? 'selected' : '' ?>>
-          <?= t('forma_rectangular') ?>
-        </option>
-
-        <option value="oval" <?= ($_GET['forma'] ?? '') === 'oval' ? 'selected' : '' ?>>
-          <?= t('forma_oval') ?>
-        </option>
-
-        <option value="redonda" <?= ($_GET['forma'] ?? '') === 'redonda' ? 'selected' : '' ?>>
-          <?= t('forma_redonda') ?>
-        </option>
-
-        <option value="cuadrada" <?= ($_GET['forma'] ?? '') === 'cuadrada' ? 'selected' : '' ?>>
-          <?= t('forma_cuadrada') ?>
-        </option>
-
-        <option value="flor" <?= ($_GET['forma'] ?? '') === 'flor' ? 'selected' : '' ?>>
-          <?= t('forma_flor') ?>
-        </option>
-
-        <option value="kurama" <?= ($_GET['forma'] ?? '') === 'kurama' ? 'selected' : '' ?>>
-          <?= t('forma_kurama') ?>
-        </option>
-
-        <option value="cascada" <?= ($_GET['forma'] ?? '') === 'cascada' ? 'selected' : '' ?>>
-          <?= t('forma_cascada') ?>
-        </option>
-
-        <option value="kusamono" <?= ($_GET['forma'] ?? '') === 'kusamono' ? 'selected' : '' ?>>
-          <?= t('forma_kusamono') ?>
-        </option>
-
-      </select>
-
-      <label><?= t('estado') ?>:</label>
-      <select name="estado" onchange="this.form.submit()">
-
-        <option value="">
-          <?= t('todas') ?>
-        </option>
-
-        <option value="0" <?= ($_GET['estado'] ?? '') === '0' ? 'selected' : '' ?>>
-          <?= t('estado_disponible') ?>
-        </option>
-
-        <option value="1" <?= ($_GET['estado'] ?? '') === '1' ? 'selected' : '' ?>>
-          <?= t('estado_vendida') ?>
-        </option>
-
-      </select>
-
-
-    </form>
-
-
-
-    <div class="catalogo-grid">
-      <?php foreach ($macetas as $m):
-
-        $fotoStmt = $pdo->prepare(
-          "SELECT archivo FROM fotos WHERE maceta_id = ? AND es_portada = 1 LIMIT 1"
-        );
-        $fotoStmt->execute([$m['id']]);
-        $portada = $fotoStmt->fetchColumn(); ?>
-
-        <div class="maceta-card">
-
-          <!-- IMAGEN clickeable -->
-          <a href="maceta.php?id=<?= $m['id'] ?>&lang=<?= $_SESSION['lang'] ?>"
-            class="maceta-link">
-
-            <div class="maceta-img-wrapper">
-
-              <?php if ($m['vendida']): ?>
-                <span class="vendida"><?= t('vendida') ?></span>
-              <?php else: ?>
-                <span class="disponible"><?= t('disponible') ?></span>
-              <?php endif; ?>
-
-              <?php if (!empty($_SESSION['admin'])): ?>
-                <a class="editar-maceta"
-                  href="admin/dashboard.php?q=<?= urlencode($m['codigo']) ?>">
-                  ✏️ Editar
-                </a>
-              <?php endif; ?>
-
-              <img src="<?= $portada ?: 'sin-foto.jpg' ?>">
+            <div>
+                <p class="catalogo-kicker"><?= t('catalogo') ?></p>
+                <h1><?= t('catalogo_b') ?></h1>
             </div>
-          </a>
 
-          <!-- TÍTULO clickeable (SEPARADO) -->
-          <div class="maceta-titulo">
-            <a href="maceta.php?id=<?= $m['id'] ?>&lang=<?= $_SESSION['lang'] ?>">
-              <?= htmlspecialchars($m['codigo']) ?> — <?= htmlspecialchars($m['nombre']) ?>
-            </a>
-          </div>
+            <?php if (!empty($_SESSION['admin'])): ?>
+
+                <a
+                    class="admin-login-link"
+                    href="admin/dashboard.php"
+                >
+                    ⚙ Administración
+                </a>
+
+            <?php else: ?>
+
+                <a
+                    class="admin-login-link"
+                    href="admin/login.php"
+                >
+                    Acceso administrador
+                </a>
+
+            <?php endif; ?>
 
         </div>
 
+    </section>
 
-      <?php endforeach; ?>
-    </div>
+    <section class="catalogo-filtros">
 
-  </main>
-  <?php include 'includes/footer.php'; ?>
+        <form method="get" class="filtros-form">
+
+            <div class="filtro">
+                <label for="forma"><?= t('forma') ?></label>
+
+                <select id="forma" name="forma" onchange="this.form.submit()">
+                    <option value=""><?= t('todas') ?></option>
+
+                    <option value="rectangular" <?= ($_GET['forma'] ?? '') === 'rectangular' ? 'selected' : '' ?>>
+                        <?= t('forma_rectangular') ?>
+                    </option>
+
+                    <option value="oval" <?= ($_GET['forma'] ?? '') === 'oval' ? 'selected' : '' ?>>
+                        <?= t('forma_oval') ?>
+                    </option>
+
+                    <option value="redonda" <?= ($_GET['forma'] ?? '') === 'redonda' ? 'selected' : '' ?>>
+                        <?= t('forma_redonda') ?>
+                    </option>
+
+                    <option value="cuadrada" <?= ($_GET['forma'] ?? '') === 'cuadrada' ? 'selected' : '' ?>>
+                        <?= t('forma_cuadrada') ?>
+                    </option>
+
+                    <option value="flor" <?= ($_GET['forma'] ?? '') === 'flor' ? 'selected' : '' ?>>
+                        <?= t('forma_flor') ?>
+                    </option>
+
+                    <option value="kurama" <?= ($_GET['forma'] ?? '') === 'kurama' ? 'selected' : '' ?>>
+                        <?= t('forma_kurama') ?>
+                    </option>
+
+                    <option value="cascada" <?= ($_GET['forma'] ?? '') === 'cascada' ? 'selected' : '' ?>>
+                        <?= t('forma_cascada') ?>
+                    </option>
+
+                    <option value="kusamono" <?= ($_GET['forma'] ?? '') === 'kusamono' ? 'selected' : '' ?>>
+                        <?= t('forma_kusamono') ?>
+                    </option>
+                </select>
+            </div>
+
+            <div class="filtro">
+                <label for="estado"><?= t('estado') ?></label>
+
+                <select id="estado" name="estado" onchange="this.form.submit()">
+                    <option value=""><?= t('todas') ?></option>
+
+                    <option value="0" <?= ($_GET['estado'] ?? '') === '0' ? 'selected' : '' ?>>
+                        <?= t('estado_disponible') ?>
+                    </option>
+
+                    <option value="1" <?= ($_GET['estado'] ?? '') === '1' ? 'selected' : '' ?>>
+                        <?= t('estado_vendida') ?>
+                    </option>
+                </select>
+            </div>
+
+        </form>
+
+    </section>
+
+    <section class="catalogo-grid">
+
+        <?php foreach ($macetas as $m): ?>
+
+            <?php
+            $fotoStmt = $pdo->prepare(
+                "SELECT archivo
+                 FROM fotos
+                 WHERE maceta_id = ?
+                   AND es_portada = 1
+                 LIMIT 1"
+            );
+
+            $fotoStmt->execute([$m['id']]);
+            $portada = $fotoStmt->fetchColumn();
+            ?>
+
+            <article class="maceta-card">
+
+                <div class="maceta-img-wrapper">
+
+                    <a
+                        href="maceta.php?id=<?= (int) $m['id'] ?>&lang=<?= urlencode($_SESSION['lang']) ?>"
+                        class="maceta-link"
+                    >
+
+                        <?php if ($m['vendida']): ?>
+                            <span class="estado vendida"><?= t('vendida') ?></span>
+                        <?php else: ?>
+                            <span class="estado disponible"><?= t('disponible') ?></span>
+                        <?php endif; ?>
+
+                        <img
+                            src="<?= htmlspecialchars($portada ?: 'sin-foto.jpg') ?>"
+                            alt="<?= htmlspecialchars($m['codigo'] . ' — ' . $m['nombre']) ?>"
+                            loading="lazy"
+                        >
+
+                        <span class="ver-maceta">
+                            Ver maceta
+                        </span>
+
+                    </a>
+
+                    <?php if (!empty($_SESSION['admin'])): ?>
+                        <a
+                            class="editar-maceta"
+                            href="admin/dashboard.php?q=<?= urlencode($m['codigo']) ?>"
+                        >
+                            ✏️ Editar
+                        </a>
+                    <?php endif; ?>
+
+                </div>
+
+                <div class="maceta-info">
+
+                    <a
+                        href="maceta.php?id=<?= (int) $m['id'] ?>&lang=<?= urlencode($_SESSION['lang']) ?>"
+                        class="maceta-titulo"
+                    >
+                        <span class="maceta-codigo">
+                            <?= htmlspecialchars($m['codigo']) ?>
+                        </span>
+
+                        <span class="maceta-nombre">
+                            <?= htmlspecialchars($m['nombre']) ?>
+                        </span>
+                    </a>
+
+                </div>
+
+            </article>
+
+        <?php endforeach; ?>
+
+    </section>
+
+</main>
+
+<?php include 'includes/footer.php'; ?>
+
 </body>
-
 </html>

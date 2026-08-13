@@ -40,7 +40,7 @@ return [
     'barro'              => 'Barro',
     'plastico'              => 'Plástico',
     'descripcion_en' => 'Descripción (inglés)',
-    'esmalte'            => 'Esmalte',
+   
     'esmalte_brillante'  => 'Esmaltado brillante',
     'esmalte_satinado'   => 'Esmaltado satinado',
     'esmalte_mate'       => 'Esmaltado mate',
@@ -55,17 +55,20 @@ return [
     'nombre'  => 'Nombre',
 
 
-    
-    
-'contacto'        => 'Contacto',
-'contacto_intro'  => 'Si te interesa alguna maceta o querés hacer una consulta, podés contactarme por los siguientes medios:',
-'ubicacion'       => 'Ubicación',
-'whatsapp'        => 'WhatsApp',
-'escribir_whatsapp' => 'Escribirme por WhatsApp',
-'email'           => 'Correo electrónico',
-'instagram'       => 'Instagram',
 
 
+    'contacto_intro'  => 'Si te interesa alguna maceta o querés hacer una consulta, podés contactarme por los siguientes medios:',
+    'ubicacion'       => 'Ubicación',
+
+    'whatsapp'        => 'WhatsApp',
+    'escribir_whatsapp' => 'Enviame un mensaje al  +59894372669',
+    'contacto_whatsapp_descripcion'  => 'Contacto directo y rápido para consultas.',
+
+    'email'           => 'Correo electrónico',
+    'contacto_email_descripcion' => 'Para consultas detalladas, información, solicitudes.',
+
+    'instagram'       => 'Busca en Instagram',
+    'contacto_instagram_descripcion' => 'Puedes ver trabajos y nuevas piezas.',
 
 
 ];
