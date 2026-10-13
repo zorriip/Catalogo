@@ -16,40 +16,40 @@
 
     <div class="card-header">
 
-    <h2>
-        📷 Fotografías (<?= count($fotos) ?>)
-    </h2>
+        <h2>
+            📷 Fotografías (<?= count($fotos) ?>)
+        </h2>
 
-    <div class="card-header-actions">
+        <div class="card-header-actions">
 
-        <button
-            type="button"
-            class="btn btn-primary"
-            id="btnAgregarFotos">
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="btnAgregarFotos">
 
-            + Agregar fotografías
+                + Agregar fotografías
 
-        </button>
+            </button>
 
-        <a
-            href="dashboard.php"
-            class="btn btn-secondary">
+            <a
+                href="dashboard.php"
+                class="btn btn-secondary">
 
-            Cancelar
+                Cancelar
 
-        </a>
+            </a>
 
-        <button
-            type="submit"
-            class="btn btn-primary">
+            <button
+                type="submit"
+                class="btn btn-primary">
 
-            Guardar
+                Guardar
 
-        </button>
+            </button>
+
+        </div>
 
     </div>
-
-</div>
 
     <div class="photo-toolbar">
 
@@ -61,11 +61,11 @@
             accept="image/*"
             style="display:none;">
 
-        <span>
+        <div id="fotos-seleccionadas" class="fotos-seleccionadas"></div>
 
+        <span>
             Puede seleccionar una o varias fotografías.
             Se cargarán al pulsar <strong>Guardar</strong>.
-
         </span>
 
     </div>
@@ -169,30 +169,117 @@
 
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
 
-        const boton = document.getElementById('btnAgregarFotos');
-        const selector = document.getElementById('fotos-input');
+    const boton = document.getElementById('btnAgregarFotos');
+    const selector = document.getElementById('fotos-input');
+    const contenedor = document.getElementById('fotos-seleccionadas');
 
-        if (boton && selector) {
+    if (!boton || !selector || !contenedor) {
+        return;
+    }
 
-            boton.addEventListener('click', function() {
+    let archivosSeleccionados = [];
 
-                selector.click();
+    boton.addEventListener('click', function() {
+        selector.click();
+    });
 
-            });
 
-            selector.addEventListener('change', function() {
+    selector.addEventListener('change', function() {
 
-                if (this.files.length > 0) {
+        archivosSeleccionados = Array.from(this.files);
 
-                    this.form.submit();
-
-                }
-
-            });
-
-        }
+        mostrarPrevisualizaciones();
 
     });
+
+
+    function mostrarPrevisualizaciones() {
+
+        contenedor.innerHTML = '';
+
+        archivosSeleccionados.forEach(function(archivo, indice) {
+
+            if (!archivo.type.startsWith('image/')) {
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+
+                const card = document.createElement('div');
+                card.className = 'photo-card foto-nueva';
+
+                const thumb = document.createElement('div');
+                thumb.className = 'photo-thumb';
+
+                const imagen = document.createElement('img');
+                imagen.src = e.target.result;
+                imagen.alt = '';
+
+                thumb.appendChild(imagen);
+
+
+                const acciones = document.createElement('div');
+                acciones.className = 'photo-actions';
+
+
+                // Hacer portada
+                const portada = document.createElement('span');
+                portada.className = 'btn btn-light btn-sm btn-disabled';
+                portada.textContent = 'Hacer portada';
+                portada.title = 'Disponible después de guardar la fotografía';
+
+                acciones.appendChild(portada);
+
+
+                // Eliminar selección
+                const eliminar = document.createElement('button');
+                eliminar.type = 'button';
+                eliminar.className = 'btn btn-danger btn-sm';
+                eliminar.textContent = '🗑 Eliminar';
+
+                eliminar.addEventListener('click', function() {
+
+                    archivosSeleccionados.splice(indice, 1);
+
+                    actualizarInput();
+                    mostrarPrevisualizaciones();
+
+                });
+
+                acciones.appendChild(eliminar);
+
+
+                card.appendChild(thumb);
+                card.appendChild(acciones);
+
+                contenedor.appendChild(card);
+
+            };
+
+            reader.readAsDataURL(archivo);
+
+        });
+
+    }
+
+
+    function actualizarInput() {
+
+        const dataTransfer = new DataTransfer();
+
+        archivosSeleccionados.forEach(function(archivo) {
+
+            dataTransfer.items.add(archivo);
+
+        });
+
+        selector.files = dataTransfer.files;
+
+    }
+
+});
 </script>

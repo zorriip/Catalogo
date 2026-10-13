@@ -15,6 +15,7 @@ return [
     'consultar_wp'  => 'Consultar por WhatsApp',
     'vendida_txt'   => 'Esta maceta ya fue vendida',
     'forma_rectangular' => 'Rectangular',
+    'forma_hexagonal' => 'Hexagonal',
     'forma_oval'        => 'Oval',
     'forma_redonda'     => 'Redonda',
     'forma_cuadrada'    => 'Cuadrada',
@@ -40,11 +41,12 @@ return [
     'barro'              => 'Barro',
     'plastico'              => 'Plástico',
     'descripcion_en' => 'Descripción (inglés)',
-   
+
     'esmalte_brillante'  => 'Esmaltado brillante',
     'esmalte_satinado'   => 'Esmaltado satinado',
     'esmalte_mate'       => 'Esmaltado mate',
     'esmalte_sin'        => 'Sin esmaltar',
+    'esmalte_sin_esmalte' => 'Sin esmaltar',
     'esmalte_mixto'      => 'Técnicas mixtas',
     'titulo_sitio' => 'Zorrilla Cerámica Bonsai',
     'inicio'       => 'Inicio',
@@ -63,12 +65,10 @@ return [
     'whatsapp'        => 'WhatsApp',
     'escribir_whatsapp' => 'Enviame un mensaje al  +59894372669',
     'contacto_whatsapp_descripcion'  => 'Contacto directo y rápido para consultas.',
-
     'email'           => 'Correo electrónico',
     'contacto_email_descripcion' => 'Para consultas detalladas, información, solicitudes.',
-
     'instagram'       => 'Busca en Instagram',
     'contacto_instagram_descripcion' => 'Puedes ver trabajos y nuevas piezas.',
-
-
+    'envios_todo_el_mundo' => 'Envíos a todo el mundo',
+    'energia_menu' => 'Uruguay sostenible',
 ];

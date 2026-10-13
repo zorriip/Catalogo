@@ -17,6 +17,7 @@ return [
     'forma_rectangular' => 'Rectangular',
     'forma_oval'        => 'Oval',
     'forma_redonda'     => 'Round',
+    'forma_hexagonal' => 'Hexagonal',
     'forma_cuadrada'    => 'Square',
     'forma_flor'        => 'Lotus',
     'forma_kurama'      => 'Kurama',
@@ -40,7 +41,7 @@ return [
     'barro'              => 'Natural soil',
     'plastico'              => 'Plástic',
     'descripcion_en' => 'Description (English)',
-    
+
     'esmalte_brillante'  => 'Gloss glaze',
     'esmalte_satinado'   => 'Satin glaze',
     'esmalte_mate'       => 'Matte glaze',
@@ -54,23 +55,18 @@ return [
     'catalogo_b'    => 'Catalog',
     'nombre'  => 'Name',
 
-   
+
     'contacto_intro'  => 'If you are interested in a pot or have any questions, you can contact me through the following channels:',
     'ubicacion'       => 'Location',
     'whatsapp'        => 'WhatsApp',
     'escribir_whatsapp' => 'Message me on WhatsApp +598 94 372 669',
     'email'           => 'Email',
     'instagram'       => 'Search on Instagram',
-    
+
     'contacto_whatsapp_descripcion'  => 'Direct and quick contact for inquiries.',
-
-  
     'contacto_email_descripcion' => 'For detailed inquiries, information, and requests.',
-
-   
     'contacto_instagram_descripcion' => 'You can see works and new pieces.',
-
-
-
+    'envios_todo_el_mundo' => 'Worlwide shipping',
+    'energia_menu' => 'Sustainable Uruguay',
 
 ];

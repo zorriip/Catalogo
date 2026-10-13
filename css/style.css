@@ -12,13 +12,17 @@
     --accent-dark: #6e5336;
     --success: #2f7d4a;
     --danger: #9a4545;
-    --shadow: 0 8px 24px rgba(0,0,0,.07);
-    --shadow-hover: 0 14px 32px rgba(0,0,0,.12);
+    --shadow: 0 8px 24px rgba(0, 0, 0, .07);
+    --shadow-hover: 0 14px 32px rgba(0, 0, 0, .12);
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
@@ -33,9 +37,15 @@ img {
     max-width: 100%;
 }
 
-a { color: inherit; }
+a {
+    color: inherit;
+}
 
-button, select, input { font: inherit; }
+button,
+select,
+input {
+    font: inherit;
+}
 
 /* ==========================================================
    HEADER
@@ -114,7 +124,9 @@ button, select, input { font: inherit; }
     font-size: 13px;
 }
 
-.idioma a.activo { font-weight: 700; }
+.idioma a.activo {
+    font-weight: 700;
+}
 
 /* ==========================================================
    CONTENIDO
@@ -126,7 +138,9 @@ button, select, input { font: inherit; }
     padding: 42px 0 55px;
 }
 
-.site-content.catalogo { max-width: 1320px; }
+.site-content.catalogo {
+    max-width: 1320px;
+}
 
 /* ==========================================================
    CABECERA
@@ -165,7 +179,7 @@ button, select, input { font: inherit; }
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.035);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .035);
 }
 
 .filtros-form {
@@ -206,7 +220,7 @@ button, select, input { font: inherit; }
 }
 
 .filtro select:focus {
-    box-shadow: 0 0 0 3px rgba(138,106,67,.12);
+    box-shadow: 0 0 0 3px rgba(138, 106, 67, .12);
 }
 
 /* ==========================================================
@@ -282,10 +296,14 @@ button, select, input { font: inherit; }
 }
 
 .estado.disponible,
-.disponible { background: rgba(47,125,74,.92); }
+.disponible {
+    background: rgba(47, 125, 74, .92);
+}
 
 .estado.vendida,
-.vendida { background: rgba(154,69,69,.92); }
+.vendida {
+    background: rgba(154, 69, 69, .92);
+}
 
 /* ==========================================================
    VER MACETA
@@ -298,7 +316,7 @@ button, select, input { font: inherit; }
     z-index: 8;
     padding: 7px 11px;
     color: #fff;
-    background: rgba(0,0,0,.72);
+    background: rgba(0, 0, 0, .72);
     border-radius: 6px;
     font-size: 12px;
     opacity: 0;
@@ -361,7 +379,7 @@ button, select, input { font: inherit; }
     z-index: 20;
     padding: 6px 9px;
     color: #fff;
-    background: rgba(0,0,0,.78);
+    background: rgba(0, 0, 0, .78);
     border-radius: 6px;
     text-decoration: none;
     font-size: 12px;
@@ -375,7 +393,9 @@ button, select, input { font: inherit; }
     transform: translateY(0);
 }
 
-.editar-maceta:hover { background: #000; }
+.editar-maceta:hover {
+    background: #000;
+}
 
 /* ==========================================================
    GALERÍA / ZOOM
@@ -404,7 +424,7 @@ button, select, input { font: inherit; }
     align-items: center;
     justify-content: center;
     z-index: 999;
-    background: rgba(0,0,0,.9);
+    background: rgba(0, 0, 0, .9);
 }
 
 #zoom-img {
@@ -459,7 +479,9 @@ button, select, input { font: inherit; }
     font-size: 14px;
 }
 
-.btn-whatsapp:hover { background: #1ebe5d; }
+.btn-whatsapp:hover {
+    background: #1ebe5d;
+}
 
 .vendida-texto {
     margin-top: 10px;
@@ -509,9 +531,13 @@ button, select, input { font: inherit; }
     text-decoration: none;
 }
 
-.logout:hover { text-decoration: underline; }
+.logout:hover {
+    text-decoration: underline;
+}
 
-.admin-search { margin-bottom: 15px; }
+.admin-search {
+    margin-bottom: 15px;
+}
 
 .admin-search input {
     width: 250px;
@@ -526,14 +552,16 @@ button, select, input { font: inherit; }
     font-size: 13px;
 }
 
-.admin-actions { margin-top: 15px; }
+.admin-actions {
+    margin-top: 15px;
+}
 
 .admin-overlay {
     position: absolute;
     top: 5px;
     right: 5px;
     padding: 4px 6px;
-    background: rgba(255,255,255,.8);
+    background: rgba(255, 255, 255, .8);
     border-radius: 4px;
 }
 
@@ -786,7 +814,7 @@ button, select, input { font: inherit; }
     background: #fff;
     border: 1px solid #dedbd4;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .05);
 }
 
 .ficha-dato {
@@ -845,7 +873,7 @@ button, select, input { font: inherit; }
     background: #fff;
     border: 1px solid #dedbd4;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .05);
 }
 
 .ficha-descripcion h2 {
@@ -873,7 +901,7 @@ button, select, input { font: inherit; }
     align-items: center;
     justify-content: center;
     z-index: 999;
-    background: rgba(0,0,0,.92);
+    background: rgba(0, 0, 0, .92);
 }
 
 #zoom-img {
@@ -972,18 +1000,9 @@ button, select, input { font: inherit; }
         height: 300px;
     }
 
-    .ficha-datos,
-    .ficha-descripcion {
-        padding: 18px;
-    }
 
-    .ficha-dato {
-        gap: 10px;
-    }
 
-    .ficha-dato strong {
-        max-width: 58%;
-    }
+
 
     #zoom-img {
         max-width: 96%;
@@ -995,9 +1014,15 @@ button, select, input { font: inherit; }
         font-size: 34px;
     }
 
-    .zoom-prev { left: 10px; }
-    .zoom-next { right: 10px; }
+    .zoom-prev {
+        left: 10px;
+    }
+
+    .zoom-next {
+        right: 10px;
+    }
 }
+
 /* ==========================================================
    ACCESO ADMINISTRADOR
 ========================================================== */
@@ -1014,7 +1039,7 @@ button, select, input { font: inherit; }
     margin-bottom: 4px;
     padding: 8px 12px;
     color: #666;
-    background: rgba(255,255,255,.65);
+    background: rgba(255, 255, 255, .65);
     border: 1px solid #d8d4cc;
     border-radius: 6px;
     text-decoration: none;
@@ -1108,13 +1133,13 @@ button, select, input { font: inherit; }
     background: #fff;
     border: 1px solid #dedbd4;
     border-radius: 12px;
-    box-shadow: 0 7px 22px rgba(0,0,0,.055);
+    box-shadow: 0 7px 22px rgba(0, 0, 0, .055);
     transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .contacto-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0,0,0,.10);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .10);
 }
 
 .contacto-card::before {
@@ -1319,3 +1344,664 @@ button, select, input { font: inherit; }
         gap: 14px;
     }
 }
+
+/* ==========================================================
+   IDIOMA Y MONEDA
+========================================================== */
+
+.header-preferencias {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.header-preferencias .idioma,
+.header-preferencias .moneda {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.header-preferencias .idioma a,
+.header-preferencias .moneda a {
+    color: #e7e7e7;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color .2s ease;
+}
+
+.header-preferencias .idioma a:hover,
+.header-preferencias .moneda a:hover,
+.header-preferencias .idioma a.activo,
+.header-preferencias .moneda a.activo {
+    color: #fff;
+}
+
+.header-preferencias .idioma a.activo,
+.header-preferencias .moneda a.activo {
+    font-weight: 700;
+}
+
+.header-preferencias span {
+    color: #777;
+    font-size: 12px;
+}
+
+.maceta-precio {
+    margin-top: 9px;
+    color: #6e5336;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* ==========================================================
+   ENVÍOS INTERNACIONALES
+========================================================== */
+
+.envios-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 30px;
+    padding: 14px 20px;
+    color: #5f4930;
+    background: #eee8de;
+    border: 1px solid #d8cdbc;
+    border-radius: 10px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    letter-spacing: .2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .04);
+}
+
+.envios-icono {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+@media (max-width: 560px) {
+
+    .envios-banner {
+        padding: 13px 15px;
+        font-size: 16px;
+    }
+
+}
+
+/* ==========================================================
+   FICHA DE MACETA
+========================================================== */
+
+.ficha-maceta {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+}
+
+
+/* Barra superior */
+
+.ficha-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.ficha-volver {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.ficha-volver:hover {
+    text-decoration: underline;
+}
+
+.ficha-admin-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.ficha-admin-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.ficha-admin-btn:hover {
+    background: #f2f2f2;
+}
+
+
+/* Encabezado de la maceta */
+
+.ficha-header {
+    margin-bottom: 30px;
+}
+
+.ficha-kicker {
+    margin-bottom: 6px;
+    color: #777;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.ficha-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.ficha-header .estado {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+
+/* Layout principal */
+
+.ficha-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(320px, .8fr);
+    gap: 50px;
+    align-items: start;
+}
+
+
+/* Galería */
+
+.ficha-galeria {
+    min-width: 0;
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.galeria-item {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.galeria-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f1f1f1;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+.galeria-item:hover img {
+    transform: scale(1.02);
+    opacity: .92;
+}
+
+
+/* Información */
+
+.ficha-info {
+    position: sticky;
+    top: 30px;
+}
+
+.ficha-info h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+
+
+
+/* Precio */
+
+.ficha-precio {
+    margin: 25px 0;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+
+/* Descripción */
+
+.ficha-descripcion {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #ddd;
+}
+
+.ficha-descripcion h2 {
+    margin: 0 0 12px;
+    font-size: 19px;
+}
+
+.ficha-descripcion p {
+    margin: 0;
+    color: #555;
+    catalogo font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* Botón de contacto */
+
+.ficha-contacto {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 22px;
+    border-radius: 6px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity .2s ease;
+}
+
+.ficha-contacto:hover {
+    opacity: .8;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 800px) {
+
+    .ficha-maceta {
+        padding: 20px 15px 40px;
+    }
+
+    .ficha-topbar {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .ficha-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .ficha-info {
+        position: static;
+    }
+
+    .ficha-header h1 {
+        font-size: 27px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .ficha-topbar {
+        flex-direction: column;
+    }
+
+    .ficha-admin-actions {
+        width: 100%;
+    }
+
+    .ficha-admin-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .galeria {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ==========================================================
+   DATOS TÉCNICOS — FORMATO VERTICAL
+========================================================== */
+.ficha-dato {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    align-items: center;
+
+    min-width: 0;
+    padding: 13px 0;
+
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.ficha-dato strong {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-transform: none;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.ficha-dato span {
+    min-width: 0;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: left !important;
+}
+/* ==========================================================
+   ENERGÍA Y CERÁMICA — V1
+========================================================== */
+
+.energia-page {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+
+/* ==========================================================
+   HERO
+========================================================== */
+
+.energia-hero {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 90px;
+}
+
+.energia-hero-text {
+    max-width: 520px;
+}
+
+.energia-kicker {
+    margin: 0 0 12px;
+    color: #8a6a43;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.energia-hero h1 {
+    margin: 0;
+    color: #242424;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(38px, 5vw, 58px);
+    font-weight: 400;
+    line-height: 1.08;
+}
+
+.energia-intro {
+    margin: 22px 0 0;
+    color: #6d6d6d;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.energia-hero-image {
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.energia-hero-image img {
+    display: block;
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+
+/* ==========================================================
+   SECCIONES
+========================================================== */
+
+.energia-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+    margin-bottom: 110px;
+}
+
+.energia-section-reverse {
+    margin-top: 20px;
+}
+
+.energia-section-image {
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.energia-section-image img {
+    display: block;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.energia-section-text {
+    max-width: 500px;
+}
+
+.energia-number {
+    margin: 0 0 12px;
+    color: #8a6a43;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.energia-section-text h2,
+.energia-galeria-heading h2,
+.energia-uruguay h2,
+.energia-final h2 {
+    margin: 0 0 18px;
+    color: #292929;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.energia-section-text p,
+.energia-galeria-heading p,
+.energia-uruguay p,
+.energia-final p {
+    color: #6b6b6b;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+
+/* ==========================================================
+   GALERÍA
+========================================================== */
+
+.energia-galeria {
+    margin-bottom: 110px;
+}
+
+.energia-galeria-heading {
+    max-width: 650px;
+    margin-bottom: 35px;
+}
+
+.energia-galeria-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.energia-galeria-grid figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.energia-galeria-grid img {
+    display: block;
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+}
+
+
+/* ==========================================================
+   URUGUAY
+========================================================== */
+
+.energia-uruguay {
+    margin-bottom: 100px;
+    padding: 80px 40px;
+    background: #ece9e3;
+    border: 1px solid #d9d4cc;
+    border-radius: 14px;
+}
+
+.energia-uruguay-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.energia-uruguay-inner .energia-number {
+    margin-bottom: 16px;
+}
+
+
+/* ==========================================================
+   CIERRE
+========================================================== */
+
+.energia-final {
+    max-width: 700px;
+    margin: 0 auto 100px;
+    text-align: center;
+}
+
+.energia-final h2 {
+    font-size: clamp(30px, 4vw, 46px);
+}
+
+.energia-final p {
+    font-size: 17px;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .energia-hero,
+    .energia-section {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .energia-hero-image img {
+        height: 500px;
+    }
+
+    .energia-section-image img {
+        height: 450px;
+    }
+
+    .energia-section-reverse .energia-section-text {
+        order: 1;
+    }
+
+    .energia-section-reverse .energia-section-image {
+        order: 2;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .energia-hero {
+        margin-bottom: 65px;
+    }
+
+    .energia-hero h1 {
+        font-size: 38px;
+    }
+
+    .energia-hero-image img {
+        height: 400px;
+    }
+
+    .energia-section {
+        margin-bottom: 75px;
+    }
+
+    .energia-section-image img {
+        height: 380px;
+    }
+
+    .energia-galeria {
+        margin-bottom: 75px;
+    }
+
+    .energia-galeria-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .energia-galeria-grid img {
+        height: 400px;
+    }
+
+    .energia-uruguay {
+        margin-bottom: 75px;
+        padding: 55px 25px;
+    }
+
+    .energia-final {
+        margin-bottom: 70px;
+    }
+
+}
+/* ==========================================================
+   ENLACE URUGUAY SOSTENIBLE
+========================================================== */
+
+.header-energia {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #66745b !important;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.header-energia:hover {
+    color: #3f5139 !important;
+}
+
+.header-energia.activo {
+    color: #3f5139 !important;
+}
+

@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/includes/admin_functions.php';
 
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: dashboard.php');
     exit;
@@ -78,7 +79,7 @@ try {
 
 
 
-    header("Location: maceta_form.php?id=" . $id . "#panel-fotos");
+    header("Location: dashboard.php");
     exit;
 } catch (Throwable $e) {
     if ($pdo->inTransaction()) $pdo->rollBack();

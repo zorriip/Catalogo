@@ -11,6 +11,7 @@ function catalogoFormas(): array
     return [
         'oval',
         'rectangular',
+        'hexagonal',
         'redonda',
         'cuadrada',
         'flor',
@@ -25,6 +26,7 @@ function catalogoMateriales(): array
     return [
         'gres',
         'terracota',
+        'loza',
         'ceramica',
         'raku',
         'barro',

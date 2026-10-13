@@ -151,6 +151,7 @@ SVG;
 
 function subirFotosMaceta(PDO $pdo, int $macetaId, array $files): void
 {
+   
     if (
         empty($files['name']) ||
         empty($files['name'][0])
@@ -173,12 +174,30 @@ function subirFotosMaceta(PDO $pdo, int $macetaId, array $files): void
         return;
     }
 
+    // Comprobar si ya existe una portada
+    $stmt = $pdo->prepare("
+        SELECT COUNT(*)
+        FROM fotos
+        WHERE maceta_id = ?
+          AND es_portada = 1
+    ");
+
+    $stmt->execute([$macetaId]);
+
+    $tienePortada = (int)$stmt->fetchColumn() > 0;
+
+
     // Crear carpeta si no existe
     $dir = __DIR__ . "/../../uploads/$codigo";
 
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
     }
+
+
+    // ID de la primera fotografía nueva
+    $primeraFotoNueva = null;
+
 
     foreach ($files['tmp_name'] as $i => $tmp) {
 
@@ -197,10 +216,13 @@ function subirFotosMaceta(PDO $pdo, int $macetaId, array $files): void
 
         $destino = $dir . '/' . $nombre;
 
+
         if (!move_uploaded_file($tmp, $destino)) {
             continue;
         }
 
+
+        // Insertar fotografía
         $stmt = $pdo->prepare("
             INSERT INTO fotos
             (maceta_id, archivo, es_portada)
@@ -211,32 +233,28 @@ function subirFotosMaceta(PDO $pdo, int $macetaId, array $files): void
             $macetaId,
             "uploads/$codigo/$nombre"
         ]);
+
+
+        // Guardar el ID de la primera foto nueva
+        if ($primeraFotoNueva === null) {
+            $primeraFotoNueva = (int)$pdo->lastInsertId();
+        }
     }
 
-    // Si no existe portada, asignar la primera
-    $stmt = $pdo->prepare("
-        SELECT COUNT(*)
-        FROM fotos
-        WHERE maceta_id = ?
-          AND es_portada = 1
-    ");
 
-    $stmt->execute([$macetaId]);
-
-    if (!$stmt->fetchColumn()) {
+    // Si no había portada, la primera foto nueva pasa a ser portada
+    if (!$tienePortada && $primeraFotoNueva !== null) {
 
         $stmt = $pdo->prepare("
             UPDATE fotos
             SET es_portada = 1
-            WHERE id = (
-                SELECT id
-                FROM fotos
-                WHERE maceta_id = ?
-                ORDER BY id
-                LIMIT 1
-            )
+            WHERE id = ?
+              AND maceta_id = ?
         ");
 
-        $stmt->execute([$macetaId]);
+        $stmt->execute([
+            $primeraFotoNueva,
+            $macetaId
+        ]);
     }
 }

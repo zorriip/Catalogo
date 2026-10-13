@@ -1,10 +1,12 @@
 <?php
-//V3001A
+//v.23/8/26
 
 require 'auth.php';
 
 require_once __DIR__ . '/../includes/catalogos.php';
 require_once __DIR__ . '/includes/admin_functions.php';
+
+
 
 
 

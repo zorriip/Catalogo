@@ -282,7 +282,7 @@ $whereSql
 
 ORDER BY
 
-    m.codigo ASC
+    m.codigo 
 
 LIMIT :limit
 
@@ -603,8 +603,9 @@ $macetas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td class="foto">
 
                                     <a
-                                        href="maceta_fotos.php?id=<?= (int)$maceta['id'] ?>"
-                                        title="Administrar fotografías">
+                                        <a
+                                        href="maceta_form.php?id=<?= (int)$maceta['id'] ?>"
+                                        title="Editar maceta">
 
                                         <?php if (!empty($maceta['portada'])): ?>
 
@@ -706,20 +707,11 @@ $macetas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
 
 
-                                <!-- ==========================================
+ <!-- ==========================================
          ACCIONES
     =========================================== -->
 
                                 <td class="acciones">
-
-                                    <a
-                                        class="icon-btn fotos"
-                                        href="maceta_fotos.php?id=<?= (int)$maceta['id'] ?>"
-                                        title="Fotografías">
-
-                                        <?= iconCamera() ?>
-
-                                    </a>
 
                                     <a
                                         class="icon-btn editar"
@@ -730,19 +722,9 @@ $macetas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                     </a>
 
-
                                     <a
                                         class="icon-btn estado"
-
-
-
-
-                                        <?php
-                                        $query = $_GET;
-                                        $query['id'] = (int)$maceta['id'];
-                                        ?>
-
-                                        href="maceta_estado.php?<?= http_build_query($query) ?>"
+                                        href="maceta_estado.php?id=<?= (int)$maceta['id'] ?>"
                                         title="<?= $maceta['estado'] === 'vendida'
                                                     ? 'Reactivar'
                                                     : 'Marcar como vendida' ?>">

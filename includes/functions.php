@@ -98,3 +98,29 @@ function url(string $path, array $params = []): string {
 function precio($valor): string {
     return number_format((float)$valor, 0, ',', '.');
 }
+
+// ==========================================================
+// CONVERSIÓN Y FORMATO DE MONEDA
+// ==========================================================
+
+function convertirMoneda($precioUsd, $moneda = 'USD')
+{
+    $precioUsd = (float) $precioUsd;
+
+    if ($moneda === 'UYU') {
+        return $precioUsd * TIPO_CAMBIO_USD_UYU;
+    }
+
+    return $precioUsd;
+}
+
+function mostrarPrecio($precioUsd, $moneda = 'USD')
+{
+    $precio = convertirMoneda($precioUsd, $moneda);
+
+    if ($moneda === 'UYU') {
+        return '$U ' . number_format($precio, 0, ',', '.');
+    }
+
+    return 'US$ ' . number_format($precio, 0, ',', '.');
+}

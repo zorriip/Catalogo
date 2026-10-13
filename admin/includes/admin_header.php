@@ -34,7 +34,7 @@ function navActive(array $pages, string $current): string
 
 <link
     rel="stylesheet"
-    href="css/admin.css?v=1">
+    href="css/admin.css?v=2">
 
 <script
     src="js/admin.js"

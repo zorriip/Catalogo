@@ -36,6 +36,13 @@ $pdo = new PDO(
 date_default_timezone_set('America/Montevideo');
 
 // ===============================
+// CONFIGURACIÓN DE MONEDA
+// ===============================
+
+// 1 USD = X pesos uruguayos
+define('TIPO_CAMBIO_USD_UYU', 41.00);
+
+// ===============================
 // DATOS DEL SITIO / CONTACTO
 // ===============================
 define('SITE_OWNER', 'Pablo Zorrilla de San Martin');
